@@ -21,7 +21,13 @@ public class KamusSederhana {
             System.out.println("4. Cari kata yang mengandung huruf");
             System.out.println("5. Tampilkan daftar kata");
             System.out.println("6. Cari kata dengan prefix atau suffix");
-            System.out.println("7. Keluar");
+            System.out.println("7. Perbarui arti kata");
+            System.out.println("8. Tampilkan jumlah kata dalam kamus");
+            System.out.println("9. Tampilkan semua kata dalam urutan abjad");
+            System.out.println("10. Reset kamus");
+            System.out.println("11. Cari kata dengan panjang tertentu");
+            System.out.println("12. Import kata-kata default");
+            System.out.println("13. Keluar");
             System.out.print("Pilih opsi: ");
 
             int choice = scanner.nextInt();
@@ -59,6 +65,31 @@ public class KamusSederhana {
                     searchWordByPrefixOrSuffix(affix);
                     break;
                 case 7:
+                    System.out.print("Masukkan kata yang ingin diperbarui: ");
+                    String wordToUpdate = scanner.nextLine();
+                    System.out.print("Masukkan arti baru: ");
+                    String newMeaning = scanner.nextLine();
+                    updateWordMeaning(wordToUpdate, newMeaning);
+                    break;
+                case 8:
+                    countWords();
+                    break;
+                case 9:
+                    showWordsAlphabetically();
+                    break;
+                case 10:
+                    resetDictionary();
+                    break;
+                case 11:
+                    System.out.print("Masukkan panjang kata yang ingin dicari: ");
+                    int length = scanner.nextInt();
+                    scanner.nextLine();  // Konsumsi newline
+                    searchWordByLength(length);
+                    break;
+                case 12:
+                    preloadDefaultWords();
+                    break;
+                case 13:
                     running = false;
                     break;
                 default:
@@ -124,5 +155,53 @@ public class KamusSederhana {
                 System.out.println(word);
             }
         }
+    }
+
+    // 7. Update kata dan artinya
+    public static void updateWordMeaning(String word, String newMeaning) {
+        if (dictionary.containsKey(word)) {
+            dictionary.put(word, newMeaning);
+            System.out.println("Arti dari '" + word + "' berhasil diperbarui.");
+        } else {
+            System.out.println("Kata tidak ditemukan di kamus.");
+        }
+    }
+
+    // 8. Hitung jumlah kata dalam kamus
+    public static void countWords() {
+        System.out.println("Jumlah kata dalam kamus: " + dictionary.size());
+    }
+
+    // 9. Tampilkan semua kata dalam urutan abjad
+    public static void showWordsAlphabetically() {
+        System.out.println("Daftar kata dalam urutan abjad:");
+        dictionary.keySet().stream()
+                .sorted()
+                .forEach(word -> System.out.println(word + ": " + dictionary.get(word)));
+    }
+
+    // 10. Reset kamus
+    public static void resetDictionary() {
+        dictionary.clear();
+        System.out.println("Kamus telah direset. Semua kata telah dihapus.");
+    }
+
+    // 11. Cari kata dengan panjang tertentu
+    public static void searchWordByLength(int length) {
+        System.out.println("Kata dengan panjang " + length + " karakter:");
+        for (String word : dictionary.keySet()) {
+            if (word.length() == length) {
+                System.out.println(word);
+            }
+        }
+    }
+
+    // 12. Import kata-kata default
+    public static void preloadDefaultWords() {
+        dictionary.put("Dog", "An animal");
+        dictionary.put("Java", "A programming language");
+        dictionary.put("School", "A place of learning");
+        dictionary.put("Book", "A written or printed work");
+        System.out.println("Kata-kata default telah dimuat ke dalam kamus.");
     }
 }
