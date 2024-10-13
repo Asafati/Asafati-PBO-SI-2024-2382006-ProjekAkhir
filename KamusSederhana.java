@@ -1,8 +1,8 @@
 import java.util.HashMap;
+import java.util.Map;  // Import the Map interface
 import java.util.Scanner;
-import java.util.Map;
 
-public class SimpleDictionary {
+public class KamusSederhana {
     private static HashMap<String, String> dictionary = new HashMap<>();
 
     public static void main(String[] args) {
